@@ -55,6 +55,19 @@ features:
 	http://localhost:5000/product/8/remove
 	handle by: router.post("/product/:id/remove", verifyToken, deleteOrder );
 
+10. view all order
+	http://localhost:5000/order
+	handle by: router.get("/order", verifyToken, viewOrder);
+
+11. view report daily, weekly, monthly
+	daily:  http://localhost:5000/reports/daily
+	weekly: http://localhost:5000/reports/weekly
+	monthly: http://localhost:5000/reports/monthly
+
+12.  vew report by topselling:
+	http://localhost:5000/reports/topselling
+
+
 Note: you have to add (Authorization section in the headers) and the provide the value of "bearer jwt-token" for the autherization to access the add, update, delete operation. 
 eg: Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTY4OTA1NTgxNH0.4oaABt-HjvLactRxZD87KVyu-X4R-qJ0q2hCqeY4Fpg
 

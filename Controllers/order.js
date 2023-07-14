@@ -4,10 +4,7 @@ const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const secretKey = process.env.SECRET_KEY;
 
-
-
-
-
+//add order handler
 const addOrder = async (req, res) => {
   const verifyAuthJWT = (req, res) => {
     //verifying jwt
@@ -59,7 +56,25 @@ const addOrder = async (req, res) => {
     return res.status(500).json({ error: "Server error" });
   }
 };
+//view order handler
+const viewOrder = async (req, res)=>{
+  const orderDetails = await prisma.order.findMany({
+    include: {
+      user: true,
+      product: true,
+    },
+  });
+  const viewOrderDetails = orderDetails.map((order)=>({
+    id: order.id,
+    userName: order.user.email,
+    productName: order.product.name,
+    date: order.order_date,
+    quantity: order.quantity
+  }))
+  res.status(200).json(viewOrderDetails);
+}
 
+//delete order handler 
  const deleteOrder = async (req, res)=>{
   const {id}=req.params;
   const parseId = parseInt(id);
@@ -87,4 +102,5 @@ const addOrder = async (req, res) => {
 module.exports = {
   addOrder,
   deleteOrder,
+  viewOrder,
 };
